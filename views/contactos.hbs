@@ -1,0 +1,32 @@
+<div class="container">
+    <div>
+        <h2>
+            Listado de productos 
+        </h2>
+    </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID Contacto</th>
+                    <th>Nombre</th>
+                    <th>mail</th>
+                    <th>Telefono</th>
+                    <th>Cuerpo</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each results}}
+                <tr>
+                    <td>{{idContactos}}</td>
+                    <td>{{nombre}}</td>
+                    <td>{{email}}</td>
+                    <td>{{telefono}}</td>
+                    <td>{{cuerpo}}</td>
+                </tr>
+                {{/each}}
+           </tbody>
+        </table>
+
+
+</div>
