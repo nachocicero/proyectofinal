@@ -153,21 +153,37 @@ app.post('/contacto',(req,res)=>{
 
               } 
                 });
+
+app.get('/contactos',(req,res, next)=>{
+
+            let sql = 'SELECT * FROM contactos';
+       
+           conexion.query(sql,(err, result) => {  //query es una funcion de mysql que hace una consulta a la base de datos
+                if(err) throw err;                       //si hay error, se detiene la ejecucion y se muestra el error
+                   res.render('contactos', {                      //si no hay error, se renderiza la pagina productos con los datos de la base de datos
+                       results: result, //se muestra el resultado de la consulta  
+                   });
+               });
+       });
+
+
+
+
         
-app.get('/contacto2',(req,res)=>{
-            res.render('contacto',{
-                title:'Contacto'
+app.get('/enviomail',(req,res)=>{
+            res.render('enviomail',{
+                title:'Envio de mails'
             });
         }   );
         
-app.post('/contacto2',(req,res)=>{
+app.post('/enviomail',(req,res)=>{
             const {nombre, email} = req.body;
             let fecha = new Date().getDate();
            
             if (nombre == '' || email == '') {
                 let validacion = 'Rellene todos los campos correctamente';
          //falta el titulo
-                  res.render('contacto', { validacion}
+                  res.render('enviomail', { validacion}
              );
              } else {
                 console.log(nombre, email);
@@ -218,18 +234,6 @@ app.post('/contacto2',(req,res)=>{
         
                }
            });            
-
-app.get('/contactos',(req,res, next)=>{
-
-            let sql = 'SELECT * FROM contactos';
-       
-           conexion.query(sql,(err, result) => {  //query es una funcion de mysql que hace una consulta a la base de datos
-                if(err) throw err;                       //si hay error, se detiene la ejecucion y se muestra el error
-                   res.render('contactos', {                      //si no hay error, se renderiza la pagina productos con los datos de la base de datos
-                       results: result, //se muestra el resultado de la consulta  
-                   });
-               });
-       });
 
 
 
