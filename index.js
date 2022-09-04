@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 8080;
 
 //conexion a la base de datos  con mysql2 
 
-const conexion = mysql.createConnection({
+/* const conexion = mysql.createConnection({
     host: process.env.HOST,
     user: process.env.USER,
     password: process.env.PASSWORD,   
@@ -24,7 +24,7 @@ conexion.connect((err) => {
     console.log(`Conectado a la base de datos ${process.env.DATABASE}`);
 });  
 
- conexion.connect();
+ conexion.connect(); */
 
 //configuracion middleware
 
@@ -51,7 +51,7 @@ app.get('/',(req,res, next)=>{
 app.get('/ayuda',(req,res, next)=>{
     res.render('ayuda', {
         title:'Ayuda',
-        style:'ayuda.css'
+        style:'index.css'
     });
 });
 
@@ -59,18 +59,21 @@ app.get('/ayuda',(req,res, next)=>{
 app.get('/login',(req,res)=>{
     res.render('login', { 
        title:'login',
+       style:'index.css'
 });
 });
 
  app.get('/formulario',(req,res)=>{
-             res.render('formulario', { 
-                title:'Formulario',
+            res.render('formulario', { 
+            title:'Formulario',
+            style:'index.css'
+
       });
         });
 
         app.post('/formulario',(req,res)=>{
           const {nombre, precio} = req.body;	//destructuracion de objetos
-             console.log(nombre, precio);
+           //  console.log(nombre, precio);
         
             if (nombre == '' || precio == '') {
                let validacion = 'Rellene todos los campos';
@@ -84,7 +87,7 @@ app.get('/login',(req,res)=>{
                     precio: precio
                 }
         
-                let sql = 'INSERT INTO productos SET ?';
+                /* let sql = 'INSERT INTO productos SET ?';
         
                 conexion.query(sql, datos, (err, result) => {  //query es una funcion de mysql que hace una consulta a la base de datos
                     if(err) throw err;                        //si hay error, se detiene la ejecucion y se muestra el error
@@ -92,7 +95,7 @@ app.get('/login',(req,res)=>{
                         title:'Formulario',                       //se muestra el resultado de la consulta
                         validacion: 'Producto añadido correctamente' //se muestra el resultado de la consulta  
                     });
-                }   );
+                }   ); */
 
             }
 
@@ -100,15 +103,25 @@ app.get('/login',(req,res)=>{
 
 
 app.get('/productos',(req,res, next)=>{
+    res.render('productos',{
+        title:'En construcción',
+        style:'index.css'
+    });
 
-            let sql = 'SELECT * FROM productos';
+         /*    let sql = 'SELECT * FROM productos';
        
            conexion.query(sql,(err, result) => {  //query es una funcion de mysql que hace una consulta a la base de datos
                 if(err) throw err;                       //si hay error, se detiene la ejecucion y se muestra el error
                    res.render('productos', {                      //si no hay error, se renderiza la pagina productos con los datos de la base de datos
                        results: result, //se muestra el resultado de la consulta  
                    });
-               });
+               }); */
+
+             /*   res.render('productos',{
+                title:'En construcción',
+                style:'index.css'
+            }); */
+
        });
 
 
@@ -118,11 +131,12 @@ app.get('/productos',(req,res, next)=>{
 
 app.get('/contacto',(req,res)=>{
             res.render('contacto',{
-                title:'Contacto'
+            title:'Contacto',
+            style:'index.css'
             });
         }   );
         
-app.post('/contacto',(req,res)=>{
+/* app.post('/contacto',(req,res)=>{
             const {nombre, email, telefono, cuerpo} = req.body;
             let fecha = new Date().getDate();
            
@@ -152,18 +166,23 @@ app.post('/contacto',(req,res)=>{
 
 
               } 
-                });
+                }); */
 
 app.get('/contactos',(req,res, next)=>{
 
-            let sql = 'SELECT * FROM contactos';
+    res.render('construccion',{
+        title:'En construccion',
+        style:'index.css'
+    });
+
+      /*       let sql = 'SELECT * FROM contactos';
        
            conexion.query(sql,(err, result) => {  //query es una funcion de mysql que hace una consulta a la base de datos
                 if(err) throw err;                       //si hay error, se detiene la ejecucion y se muestra el error
                    res.render('contactos', {                      //si no hay error, se renderiza la pagina productos con los datos de la base de datos
                        results: result, //se muestra el resultado de la consulta  
                    });
-               });
+               }); */
        });
 
 
@@ -172,7 +191,8 @@ app.get('/contactos',(req,res, next)=>{
         
 app.get('/enviomail',(req,res)=>{
             res.render('enviomail',{
-                title:'Envio de mails'
+            title:'Envio de mails',
+            style:'index.css'
             });
         }   );
         
@@ -186,7 +206,7 @@ app.post('/enviomail',(req,res)=>{
                   res.render('enviomail', { validacion}
              );
              } else {
-                console.log(nombre, email);
+               // console.log(nombre, email);
         
             async function envioEmail() { 
         
@@ -222,15 +242,15 @@ app.post('/enviomail',(req,res)=>{
                 email: email
             }
         
-            let sql = 'INSERT INTO contactos SET ?';
+            /* let sql = 'INSERT INTO contactos SET ?';
         
             conexion.query(sql, datos, (err, result) => {  //query es una funcion de mysql que hace una consulta a la base de datos
                 if(err) throw err;                        //si hay error, se detiene la ejecucion y se muestra el error
                 /* res.render('contacto', {                      //si no hay error, se muestra el resultado de la consulta
                     title:'Contacto',                       //se muestra el resultado de la consulta
                     validacion: 'Datos guardados' //se muestra el resultado de la consulta  
-                }); */
-            }   );
+                }); 
+            }   ); */
         
                }
            });            
@@ -239,5 +259,5 @@ app.post('/enviomail',(req,res)=>{
 
 
 app.listen(PORT,()=>{
-    console.log(`Servidor corriendo en el puerto ${PORT}`);
+   // console.log(`Servidor corriendo en el puerto ${PORT}`);
     }   );
